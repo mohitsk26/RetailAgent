@@ -1,0 +1,545 @@
+# RetailAgent Demo Guide &  Walkthrough
+
+# 1. Project Startup
+
+## Step 1: Open Terminal
+
+Navigate to the project folder:
+
+```bash
+cd RetailAgent
+```
+
+---
+
+## Step 2: Activate Virtual Environment
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+Linux/Mac
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+## Step 3: Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Step 4: Configure Environment Variables
+
+Create `.env`
+
+```
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+## Step 5: Create Vector Database (Only Once)
+
+```bash
+python -m src.rag.ingest
+```
+
+This:
+
+* Loads knowledge base documents
+* Splits into chunks
+* Generates embeddings
+* Stores vectors in ChromaDB
+
+No need to run every time unless knowledge base changes.
+
+---
+
+## Step 6: Start API
+
+```bash
+uvicorn src.api.app:app --reload
+```
+
+Server starts:
+
+```
+http://127.0.0.1:8000
+```
+
+Swagger UI:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# 2. Demo Flow
+
+Open
+
+```
+http://127.0.0.1:8000/docs
+```
+
+You will see:
+
+GET /
+
+POST /predict
+
+POST /ai-recommendation
+
+---
+
+# 3. Explain the Endpoints
+
+## GET /
+
+Health check endpoint.
+
+Confirms API is running.
+
+---
+
+## POST /predict
+
+Calls only the Machine Learning model.
+
+Input:
+
+Customer features
+
+↓
+
+OneHotEncoder
+
+↓
+
+Random Forest
+
+↓
+
+Prediction
+
+↓
+
+Risk
+
+Returns:
+
+```
+{
+"prediction":1,
+"risk":"High Churn"
+}
+```
+
+---
+
+## POST /ai-recommendation
+
+This is the flagship endpoint.
+
+Input
+
+↓
+
+LangGraph
+
+↓
+
+Recommendation Agent
+
+↓
+
+Churn Agent
+
+↓
+
+Random Forest
+
+↓
+
+Risk Prediction
+
+↓
+
+RAG Agent
+
+↓
+
+Retriever
+
+↓
+
+ChromaDB
+
+↓
+
+Knowledge Base
+
+↓
+
+Groq LLM
+
+↓
+
+Final Recommendation
+
+Returns:
+
+```
+{
+"risk":"High Churn",
+"recommendation":"Offer personalized discount..."
+}
+```
+
+---
+
+# 4. Demo Input
+
+Paste:
+
+```json
+{
+  "Recency":95,
+  "Frequency":3,
+  "Monetary":12000,
+  "Avg_Discount":25,
+  "Customer_Tier":"Silver",
+  "Favorite_Category":"Fashion"
+}
+```
+
+Click Execute.
+
+Show:
+
+High Churn
+
+Recommendation
+
+Explain:
+
+"The recommendation is not hardcoded. It is generated dynamically after retrieving company retention policies from the vector database."
+
+---
+
+# 5. How to Explain Architecture
+
+Draw:
+
+```
+            Customer
+
+                │
+
+                ▼
+
+            FastAPI
+
+                │
+
+                ▼
+
+          LangGraph Graph
+
+                │
+
+                ▼
+
+     Recommendation Agent
+
+         ┌─────────────┴─────────────┐
+
+         ▼                           ▼
+
+  Churn Agent                  RAG Agent
+
+         │                           │
+
+         ▼                           ▼
+
+ RandomForest ML              Retriever
+
+                                      │
+
+                                      ▼
+
+                                  ChromaDB
+
+                                      │
+
+                                      ▼
+
+                             Knowledge Base
+
+                                      │
+
+                                      ▼
+
+                                 Groq LLM
+
+                                      │
+
+                                      ▼
+
+                          Business Recommendation
+```
+
+---
+
+# 6. How to Explain RAG
+
+Without RAG
+
+LLM answers from pre-trained knowledge.
+
+May hallucinate.
+
+With RAG
+
+Retriever fetches company documents.
+
+LLM answers only using retrieved context.
+
+Benefits:
+
+* Grounded
+* Updatable
+* Lower hallucination
+* No retraining required
+
+---
+
+# 7. Why ChromaDB?
+
+Stores vector embeddings.
+
+Supports semantic similarity search.
+
+Example:
+
+"refund policy"
+
+and
+
+"return policy"
+
+produce similar vectors.
+
+Retriever can find both.
+
+---
+
+# 8. Why Embeddings?
+
+Text
+
+↓
+
+Sentence Transformer
+
+↓
+
+768-dimensional vector
+
+↓
+
+Similarity Search
+
+↓
+
+Relevant document
+
+↓
+
+LLM
+
+---
+
+# 9. Why LangGraph?
+
+Instead of one large function:
+
+User
+
+↓
+
+One function
+
+↓
+
+Answer
+
+We use:
+
+User
+
+↓
+
+Supervisor
+
+↓
+
+Multiple agents
+
+↓
+
+Answer
+
+Advantages:
+
+* Modular
+* Reusable
+* Scalable
+* Enterprise architecture
+
+---
+
+# 10. Why Random Forest?
+
+* Robust
+* Nonlinear
+* Feature importance
+* Handles mixed features
+* Less preprocessing
+
+Alternative:
+
+XGBoost
+
+LightGBM
+
+CatBoost
+
+---
+
+# 11. Why FastAPI?
+
+* High performance
+* Automatic Swagger docs
+* Async support
+* Easy deployment
+* REST API
+
+---
+
+# 12. Interview Explanation (2 Minutes)
+
+"I built an Agentic AI Retail Customer Retention Copilot.
+
+The system predicts customer churn using a Random Forest model trained on RFM features.
+
+Instead of stopping at prediction, it uses Retrieval-Augmented Generation.
+
+Business policies are stored as documents and converted into embeddings using HuggingFace Sentence Transformers.
+
+These embeddings are stored inside ChromaDB.
+
+When a customer is predicted as High Churn, LangGraph orchestrates multiple agents.
+
+The Churn Agent predicts the risk.
+
+The RAG Agent retrieves the most relevant retention policies.
+
+Groq LLM generates a grounded recommendation using only the retrieved context.
+
+The Recommendation Agent combines prediction and knowledge retrieval into an actionable business recommendation.
+
+The entire workflow is exposed through FastAPI and demonstrated through Swagger UI."
+
+---
+
+# 13. If Interviewer Asks "How would a company use this?"
+
+Customer calls support.
+
+↓
+
+Support executive opens CRM.
+
+↓
+
+Customer profile loaded.
+
+↓
+
+API called.
+
+↓
+
+ML predicts churn.
+
+↓
+
+RAG retrieves retention policy.
+
+↓
+
+AI suggests best retention strategy.
+
+↓
+
+Executive follows recommendation.
+
+↓
+
+Customer retained.
+
+---
+
+# 14. How to Update Company Policies
+
+Simply add or edit Markdown files inside:
+
+knowledge_base/
+
+Run:
+
+```bash
+python -m src.rag.ingest
+```
+
+Embeddings are regenerated.
+
+No model retraining required.
+
+---
+
+# 15. Future Improvements
+
+* React Dashboard
+* Authentication
+* PostgreSQL
+* Redis Cache
+* Docker
+* Kubernetes
+* Azure Deployment
+* AWS Deployment
+* Human Approval Workflow
+* Fraud Agent
+* Pricing Agent
+* Inventory Agent
+* SQL Agent
+* Email Agent
+* Voice Assistant
+* Analytics Dashboard
+* Real-time Kafka Streaming
+
+---
+
+# 16. Final Closing Statement
+
+"This project demonstrates an end-to-end production-style AI architecture combining Machine Learning, Retrieval-Augmented Generation, Vector Databases, Agentic AI, LangGraph orchestration, and REST APIs to solve a real-world retail customer retention problem."
