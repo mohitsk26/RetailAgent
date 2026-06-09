@@ -1,0 +1,158 @@
+CUSTOMER RETENTION AND LOYALTY POLICY
+
+Company:
+RetailMart Pvt Ltd
+
+Version:
+2.1
+
+Effective Date:
+January 2026
+
+--------------------------------------------------
+
+OBJECTIVE
+
+The objective of this policy is to reduce customer churn by providing personalized engagement strategies based on customer purchasing behavior and loyalty status.
+
+--------------------------------------------------
+
+HIGH CHURN RISK CUSTOMERS
+
+A customer is considered high churn risk if:
+
+- No purchases in the last 90 days
+- Purchase frequency less than 5 orders
+- Total spending below $15,000
+- Multiple unresolved complaints
+
+Recommended retention strategy:
+
+- Provide a personalized discount between 10% and 15%
+- Award 1000 loyalty reward points
+- Send a personalized email campaign
+- Schedule a customer success follow-up call within 48 hours
+- Recommend products from previous purchase history
+
+--------------------------------------------------
+
+MEDIUM CHURN RISK CUSTOMERS
+
+Criteria:
+
+- No purchase between 45 and 90 days
+- Purchase frequency between 5 and 10 orders
+
+Recommended actions:
+
+- Offer limited-time promotional discounts
+- Send push notifications
+- Recommend trending products
+- Invite customer to loyalty program
+
+--------------------------------------------------
+
+LOW CHURN RISK CUSTOMERS
+
+Criteria:
+
+- Purchased within last 30 days
+- Frequent buyer
+- High engagement score
+
+Recommended actions:
+
+- Continue regular engagement
+- Offer premium membership
+- Give early access to sales
+- Reward loyalty milestones
+
+--------------------------------------------------
+
+CUSTOMER SERVICE SOP
+
+Every customer interaction should follow:
+
+1. Verify customer identity.
+
+2. Listen actively.
+
+3. Review purchase history.
+
+4. Review complaint history.
+
+5. Check loyalty status.
+
+6. Apply retention policy.
+
+7. Escalate to manager if required.
+
+--------------------------------------------------
+
+REFUND POLICY
+
+Customers can request refunds within 30 days of purchase.
+
+Products must be unused and returned with original packaging.
+
+Refunds are processed within 5 business days after inspection.
+
+--------------------------------------------------
+
+RETURN POLICY
+
+Damaged products may be returned within 15 days.
+
+Defective products qualify for replacement or full refund.
+
+Customers should upload purchase invoice before return approval.
+
+--------------------------------------------------
+
+LOYALTY PROGRAM
+
+Silver Customers
+
+- Earn 1 point per dollar spent.
+
+Gold Customers
+
+- Earn 2 points per dollar spent.
+
+- Free delivery.
+
+Platinum Customers
+
+- Earn 3 points per dollar spent.
+
+- Free delivery.
+
+- Priority customer support.
+
+- Exclusive promotional offers.
+
+--------------------------------------------------
+
+RECOMMENDATION ENGINE RULES
+
+Fashion customers should receive personalized apparel recommendations.
+
+Electronics customers should receive warranty extension offers.
+
+Beauty customers should receive bundle recommendations.
+
+Sports customers should receive seasonal promotions.
+
+Home customers should receive furniture and decor bundles.
+
+--------------------------------------------------
+
+BUSINESS PRINCIPLE
+
+Customer retention should maximize long-term customer lifetime value rather than short-term revenue.
+
+Retention campaigns should be personalized and data-driven.
+
+--------------------------------------------------
+
+END OF DOCUMENT

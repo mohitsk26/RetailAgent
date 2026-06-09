@@ -9,6 +9,10 @@ from src.graph.retail_graph import graph
 import pandas as pd
 import joblib
 
+from pydantic import BaseModel
+
+from src.rag.rag_chain import rag_pipeline
+
 # ----------------------------------------------------
 # Project Root
 # ----------------------------------------------------
@@ -42,6 +46,11 @@ app = FastAPI(
 # ----------------------------------------------------
 # Input Schema
 # ----------------------------------------------------
+
+
+class ChatRequest(BaseModel):
+
+    query: str
 
 class CustomerData(BaseModel):
 
@@ -185,5 +194,22 @@ def ai_recommendation(customer: CustomerData):
         "risk": result["result"]["risk"],
 
         "recommendation": result["result"]["recommendation"]
+
+    }
+
+
+@app.post("/chat")
+
+def chat(request: ChatRequest):
+
+    answer = rag_pipeline(
+
+        request.query
+
+    )
+
+    return {
+
+        "answer": answer
 
     }

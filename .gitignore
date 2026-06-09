@@ -239,10 +239,12 @@ __pycache__/
 
 artifacts/chroma_db/
 vectorstore/
+uploads/
+.cache/
 
 .env.local
 .env.production
-
+*.joblib
 *.joblib.bak
 
 
@@ -255,3 +257,6 @@ test_env.py
 .ipynb_checkpoints/
 .vscode/
 .idea/
+
+
+vectorstore/
